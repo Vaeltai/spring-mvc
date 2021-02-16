@@ -1,7 +1,6 @@
 package web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,11 +11,10 @@ import web.service.CarService;
 @Controller
 public class CarsController {
     @Autowired
-    private ApplicationContext applicationContext;
+    private CarService carService;
     @RequestMapping(value = "/cars", method = RequestMethod.GET)
     public String getCars(Model model, @RequestParam(value = "count", required = false) Integer count) {
-        CarService bean = applicationContext.getBean(CarService.class);
-        model.addAttribute("cars", bean.getCars(count));
+        model.addAttribute("cars", carService.getCars(count));
         return "cars";
     }
 }
